@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCC | Smn</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=VT323&display=swap');
+
+        :root {
+            --background: #000000;
+            --foreground: #ffffff;
+            --card: #12121f;
+            --card-foreground: #e0e0e0;
+            --primary: #6666ff;
+            --primary-foreground: #ffffff;
+            --secondary: #1a1a2e;
+            --secondary-foreground: #e0e0e0;
+            --muted: #2c2c3e;
+            --muted-foreground: #a0aec0;
+            --accent: #ff66ff;
+            --accent-foreground: #ffffff;
+            --destructive: #ff3333;
+            --destructive-foreground: #ffffff;
+            --border: #2c2c3e;
+            --input: #2c2c3e;
+            --ring: #6666ff;
+            --radius: 0.25rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes textGlow {
+            0%, 100% {
+                text-shadow: 0 0 4px var(--primary),
+                           0 0 11px var(--primary),
+                           0 0 19px var(--primary);
+            }
+            50% {
+                text-shadow: 0 0 4px var(--accent),
+                           0 0 11px var(--accent),
+                           0 0 19px var(--accent);
+            }
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        @keyframes fadeOutStaggered {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translate(0);
+            }
+            20% {
+                transform: translate(-5px, 5px);
+            }
+            40% {
+                transform: translate(-5px, -5px);
+            }
+            60% {
+                transform: translate(5px, 5px);
+            }
+            80% {
+                transform: translate(5px, -5px);
+            }
+            100% {
+                transform: translate(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.05);
+            }
+        }
+
+        body {
+            font-family: 'VT323', monospace;
+            background-color: var(--background);
+            color: var(--foreground);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card {
+            background-color: rgba(18, 18, 31, 0.8);
+            color: var(--card-foreground);
+            border-radius: var(--radius);
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 20px rgba(102, 102, 255, 0.4);
+            padding: 2rem;
+            max-width: 24rem;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: transform 0.1s ease, box-shadow 0.3s ease;
+        }
+
+        .card::before,
+        .card::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-image: linear-gradient(
+                to right,
+                transparent,
+                var(--primary),
+                transparent
+            );
+            z-index: 2;
+            opacity: 0.3;
+        }
+
+        .card::before {
+            top: 0;
+            animation: scanline 4s linear infinite;
+        }
+
+        .card::after {
+            bottom: 0;
+            animation: scanline 4s linear infinite reverse;
+        }
+
+        .scanlines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(102, 102, 255, 0.05) 0.5%,
+                transparent 1%
+            );
+            animation: scanline 10s linear infinite;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .card-content {
+            transform: translateZ(50px);
+            position: relative;
+            z-index: 3;
+        }
+
+        .avatar {
+            width: 128px;
+            height: 128px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 20px rgba(102, 102, 255, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        .avatar:hover {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .glow {
+            box-shadow: 0 0 10px var(--primary);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            background-color: var(--secondary);
+            color: var(--accent);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius);
+            font-size: 0.9rem;
+        }
+
+        .name-container {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            height: 2em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            text-align: center;
+        }
+
+        .full-name, .short-name {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            right: 0;
+        }
+
+        .full-name span {
+            display: inline-block;
+            animation: fadeOutStaggered 2s forwards;
+        }
+
+        .animated .full-name span:nth-child(1) { animation-delay: 0s; }
+        .animated .full-name span:nth-child(2) { animation-delay: 0.2s; }
+        .animated .full-name span:nth-child(3) { animation-delay: 0.4s; }
+        .animated .full-name span:nth-child(4) { animation-delay: 0.6s; }
+        .animated .full-name span:nth-child(5) { animation-delay: 0.8s; }
+        .animated .full-name span:nth-child(6) { animation-delay: 1s; }
+        .animated .full-name span:nth-child(7) { animation-delay: 1.2s; }
+        .animated .full-name span:nth-child(8) { animation-delay: 1.4s; }
+
+        .short-name {
+            opacity: 0;
+            color: var(--primary);
+        }
+
+        .animated .short-name {
+            animation: fadeIn 2s forwards 1.6s, textGlow 2s infinite 1.6s;
+        }
+
+        .full-name .highlight {
+            color: var(--primary);
+            animation: textGlow 2s infinite, fadeOutStaggered 2s forwards;
+        }
+
+        .animated .full-name span.highlight:nth-child(1) { animation-delay: 0s, 0s; }
+        .animated .full-name span.highlight:nth-child(3) { animation-delay: 0s, 0.4s; }
+        .animated .full-name span.highlight:nth-child(5) { animation-delay: 0s, 0.8s; }
+
+        p {
+            font-family: 'VT323', monospace;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            text-shadow: 0 0 5px var(--accent);
+        }
+
+        #discord-username {
+            font-family: 'VT323', monospace;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            text-shadow: 0 0 5px var(--accent);
+            min-height: 1.5em;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2);
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            font-family: 'VT323', monospace;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 1.1rem;
+            border: 1px solid currentColor;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-right: 0.5rem;
+            filter: drop-shadow(0 0 2px currentColor);
+        }
+
+        @media (max-width: 640px) {
+            .card {
+                padding: 1.5rem;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup .card {
+            max-width: 400px;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mute-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .mute-button svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--primary);
+            transition: fill 0.3s ease;
+        }
+
+        .mute-button:hover svg {
+            fill: var(--accent);
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .volume-slider {
+            -webkit-appearance: none;
+            width: 100px;
+            height: 4px;
+            border-radius: 2px;
+            background: var(--primary);
+            outline: none;
+            opacity: 0.7;
+            transition: opacity .2s;
+            margin-right: 10px;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+        }
+
+        .glitch-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c8TV1mAAAAG3RSTlNAQEBAQEBAQEBAQEBAQEBAQEBAQEAvEOwtAAAFVklEQVR4XpWWB67c2BUFb3g557T/hRo9/WUMZHlgr4Bg8Z4qQgQJlHI4A8SzFVrapvmTF9O7dmYRFZ60YiBhJRCgh1FYhiLAmdvX0CzTOpNE77ME0Zty/nWWzchDtiqrmQDeuv3powQ5ta2eN0FY0InkqDD73lT9c9lEzwUNqgFHs9VQce3TVClFCQrSTfOiYkVJQBmpbq2L6iZavPnAPcoU0dSw0SUTqz/GtrGuXfbyyBniKykOWQWGqwwMA7QiYAxi+IlPdqo+hYHnUt5ZPfnsHJyNiDtnpJyayNBkF6cWoYGAMY92U2hXHF/C1M8uP/ZtYdiuj26UdAdQQSXQErwSOMzt/XWRWAz5GuSBIkwG1H3FabJ2OsUOUhGC6tK4EMtJO0ttC6IBD3kM0ve0tJwMdSfjZo+EEISaeTr9P3wYrGjXqyC1krcKdhMpxEnt5JetoulscpyzhXN5FRpuPHvbeQaKxFAEB6EN+cYN6xD7RYGpXpNndMmZgM5Dcs3YSNFDHUo2LGfZuukSWyUYirJAdYbF3MfqEKmjM+I2EfhA94iG3L7uKrR+GdWD73ydlJyZzIxLJZPMPZDIj2/gCLcBGAslWLG3qGdRH7rzyw6dEb4fJFnQ8yKz+ZCiFJDcCBbYzUS8jflwm8akWV1rRpCWgFLT2QrL2P0P5NxMdTn1iH4JiusTLdLOHnMjFtxhB/78AvicBuEg+UmPWOm7C+7A==');
+            pointer-events: none;
+        }
+
+        .crt-effect::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .inner-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: var(--radius);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .misty-smoke {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c8TV1mAAAAG3RSTlNAQEBAQEBAQEBAQEBAQEBAQEBAQEAvEOwtAAAFVklEQVR4XpWWB67c2BUFb3g557T/hRo9/WUMZHlgr4Bg8Z4qQgQJlHI4A8SzFVrapvmTF9O7dmYRFZ60YiBhJRCgh1FYhiLAmdvX0CzTOpNE77ME0Zty/nWWzchDtiqrmQDeuv3powQ5ta2eN0FY0InkqDD73lT9c9lEzwUNqgFHs9VQce3TVClFCQrSTfOiYkVJQBmpbq2L6iZavPnAPcoU0dSw0SUTqz/GtrGuXfbyyBniKykOWQWGqwwMA7QiYAxi+IlPdqo+hYHnUt5ZPfnsHJyNiDtnpJyayNBkF6cWoYGAMY92U2hXHF/C1M8uP/ZtYdiuj26UdAdQQSXQErwSOMzt/XWRWAz5GuSBIkwG1H3FabJ2OsUOUhGC6tK4EMtJO0ttC6IBD3kM0ve0tJwMdSfjZo+EEISaeTr9P3wYrGjXqyC1krcKdhMpxEnt5JetoulscpyzhXN5FRpuPHvbeQaKxFAEB6EN+cYN6xD7RYGpXpNndMmZgM5Dcs3YSNFDHUo2LGfZuukSWyUYirJAdYbF3MfqEKmjM+I2EfhA94iG3L7uKrR+GdWD73ydlJyZzIxLJZPMPZDIj2/gCLcBGAslWLG3qGdRH7rzyw6dEb4fJFnQ8yKz+ZCiFJDcCBbYzUS8jflwm8akWV1rRpCWgFLT2QrL2P0P5NxMdTn1iH4JiusTLdLOHnMjFtxhB/78AvicBuEg+UmPWOm7C+7A==');
+            background-size: cover;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+
+        .click-to-start, .celestia-text {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .celestia-text {
+            opacity: 0;
+            height: 1.5em;
+        }
+
+        .blinking-cursor {
+            display: inline-block;
+            width: 0.1em;
+            height: 1em;
+            background-color: white;
+            animation: blink 0.7s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .click-to-start {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .visitor-info {
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: var(--accent);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="card crt-effect">
+            <div class="scanlines"></div>
+            <div class="glitch-effect"></div>
+            <div class="card-content">
+                <div class="inner-glow"></div>
+                <div class="misty-smoke"></div>
+                <p class="click-to-start">Click to start!</p>
+                <div id="card-content" class="hidden">
+                    <img src="https://cdn.cookingclub.xyz/smn.gif" alt="oops" class="avatar" draggable="false">
+                    <div class="name-container">
+                        <span class="full-name">
+                            <span class="highlight">S</span>
+                            <span>a</span>
+                            <span class="highlight">m</span>
+                            <span>a</span>
+                            <span class="highlight">n</span>
+                            <span>t</span>
+                            <span>h</span>
+                            <span>a</span>
+                        </span>
+                        <span class="short-name">Smn</span>
+                    </div>
+                    <p class="celestia-text" id="celestiaText"></p>
+                    <p id="discord-username"></p>
+                    <div class="social-icons">
+                        <a href="https://steamcommunity.com/id/smnyk" target="_blank" rel="noopener noreferrer">
+                            <img src="https://cdn.cookingclub.xyz/steam-24.ico" alt="Steam" class="social-icon">
+                        </a>
+                        <a href="https://open.spotify.com/user/g65u17ojag6jpczwnwcwure8f" target="_blank" rel="noopener noreferrer">
+                            <img src="https://cdn.cookingclub.xyz/spotify-24.ico" alt="Spotify" class="social-icon">
+                        </a>
+                    </div>
+                    <div class="buttons">
+                        <a href="https://discord.gg/cookingclub" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                            </svg>
+                            Join Discord
+                        </a>
+                        <a href="https://github.com/zekkzn" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                            <svg class="icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                            GitHub
+                        </a>
+                    </div>
+                    <div class="volume-control">
+                        <input type="range" min="0" max="100" value="5" class="volume-slider" id="volumeSlider">
+                        <button class="mute-button" id="muteButton">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">C#/WPF</span>
+                        <span class="skill-tag">CSS</span>
+                        <span class="skill-tag">HTML</span>
+                        <span class="skill-tag">Perl</span>
+                    </div>
+                    <div id="visitor-info" class="visitor-info"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="backgroundAudio" loop preload="auto" crossorigin="anonymous">
+        <source src="https://cdn.cookingclub.xyz/evocation.mp3" type="audio/mpeg">
+        audio couldn't play :( ur browser is bad!!!
+    </audio>
+
+    <div id="devToolsPopup" class="popup" style="display: none;">
+        <div class="card">
+            <h2>yo stop tryna skid my code</h2>
+            <p>or if you just wanted the avatar, you can't have it :)</p>
+            <button class="btn btn-primary" onclick="closeDevToolsPopup()">Got it!</button>
+        </div>
+    </div>
+
+    <script src="js/bio/visitorInfo.js"></script>
+    <script src="js/bio/smn.js?v=1.0.7"></script>
+
+</body>
+</html>
+
