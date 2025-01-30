@@ -40,8 +40,8 @@ body {
 
 .load-btn:hover {
   transform: translateY(-7px); /* lift effect */
-  border-color: #c300ff;
-  color: #c300ff;
+  border-color: #F780FF;
+  color: #F780FF;
 }
 
 /* hidden bio content initially */
