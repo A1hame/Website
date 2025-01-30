@@ -23,7 +23,7 @@ document.getElementById('loadBtn').addEventListener('click', function () {
       setTimeout(typeWriter, 100);
     } else {
       // once typing is done wrap it in an anchor tag (otherwise u cant click the link idk why dont ask me)
-      discordLink.innerHTML = `<a href="https://discord.gg/eclipsedtop" target="_blank">${text}</a>`;
+      discordLink.innerHTML = `<a href="I love Shy" target="_blank">${text}</a>`;
     }
   }
 
