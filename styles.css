@@ -1,0 +1,143 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-weight: 400;
+  font-style: normal;
+  background-color: #000000;
+  color: white;
+  overflow: hidden;
+  font-family: "Electrolize", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  position: relative;
+}
+
+.load-btn {
+  padding: 20px 45px;
+  font-size: 19px;
+  background-color: #000000;
+  border-color: #9900ff;
+  cursor: pointer;
+  color: #ffffff;
+  z-index: 2;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  font-family: "Electrolize", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.load-btn:hover {
+  transform: translateY(-7px); /* lift effect */
+  border-color: #c300ff;
+  color: #c300ff;
+}
+
+/* hidden bio content initially */
+.bio-content {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  text-align: center;
+}
+
+/* fullscreen video background */
+.video-background video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.embed {
+  background-color: rgba(43, 43, 43, 0.945);
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid rgb(88, 88, 88); /* Added black border */
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  color: white;
+  z-index: 3;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 50px rgb(0, 0, 0); /* Faint outer glow */
+  transition: opacity 0.3s ease; /* Smooth fade-in/out */
+}
+
+.embed.invisible {
+  opacity: 0; /* invisible state */
+  pointer-events: none; /* prevents interactions when invisible */
+}
+
+.username {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-family: "Electrolize", serif;
+}
+
+.discord-link {
+  font-size: 18px;
+  margin-top: 10px;
+  color: #9900ff;
+  font-family: "Electrolize", serif;
+  font-weight: 400;
+  font-style: normal;
+  z-index: 5;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.discord-link a {
+  text-decoration: none;  /* removes the underline*/
+  color: #9900ff;  /* keep the link color */
+}
+
+.discord-link a:hover {
+  color: #9900ff;  /* prevent the color from changing on hover */
+}
+
+
+.social-icons {
+  margin-top: 35px;
+  z-index: 4;
+  position: relative;
+}
+
+.social-icons a {
+  display: inline-block;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.social-icons img {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s ease;
+}
+
+.social-icons img:hover {
+  transform: scale(1.1);
+}
+
