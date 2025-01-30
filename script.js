@@ -13,7 +13,7 @@ document.getElementById('loadBtn').addEventListener('click', function () {
 
   // discord link typewriter effect
   const discordLink = document.getElementById('discord-link');
-  const text = 'https://discord.gg/eclipsedtop';
+  const text = 'I love cats';
   let index = 0;
 
   function typeWriter() {
