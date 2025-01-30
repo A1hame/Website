@@ -1,4 +1,4 @@
-const titleText = "Kike Abuse";
+const titleText = "A1ham";
 let index = 0;
 
 function animateTitle() {
