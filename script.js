@@ -9,5 +9,4 @@ function animateTitle() {
     }
 }
 
-
 window.onload = animateTitle;
