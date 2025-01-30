@@ -1,4 +1,3 @@
-
 const titleText = "A 1 h a m | S o p h i e e";
 let index = 0;
 
