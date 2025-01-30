@@ -13,7 +13,7 @@ document.getElementById('loadBtn').addEventListener('click', function () {
 
   // discord link typewriter effect
   const discordLink = document.getElementById('discord-link');
-  const text = 'Do not compare yourself to others. If you do so, you are insulting yourself.';
+  const text = 'test';
   let index = 0;
 
   function typeWriter() {
