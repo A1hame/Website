@@ -8,12 +8,12 @@ document.getElementById('loadBtn').addEventListener('click', function () {
   // play background music
   const audio = new Audio('https://storage.eclipsed.top/1171914012691005440/aiham/video.mp3');
   audio.volume = 0.15; // 15% volume - put to 20% (.2) maybe, its kinda loud on 100% pc volume but its fine for avrg mobile volume - if you put 30% or above ur gonna commit at least 30 war crimes so be warned
-  audio.loop = false;
+  audio.loop = true;
   audio.play();
 
   // discord link typewriter effect
   const discordLink = document.getElementById('discord-link');
-  const text = 'I love cats';
+  const text = 'https://discord.gg/eclipsedtop';
   let index = 0;
 
   function typeWriter() {
@@ -23,7 +23,7 @@ document.getElementById('loadBtn').addEventListener('click', function () {
       setTimeout(typeWriter, 100);
     } else {
       // once typing is done wrap it in an anchor tag (otherwise u cant click the link idk why dont ask me)
-      discordLink.innerHTML = `<a href="I love Shy" target="_blank">${text}</a>`;
+      discordLink.innerHTML = `<a href="https://discord.gg/eclipsedtop" target="_blank">${text}</a>`;
     }
   }
 
