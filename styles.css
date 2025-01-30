@@ -3,17 +3,31 @@ body {
     color: white;
     font-family: 'Arial', sans-serif;
     text-align: center;
-}
-
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
 }
 
 .animated-title {
-    font-size: 24px;
+    font-size: 40px;
     font-weight: bold;
     color: #ccc;
-    animation: fadeIn 2s ease-in-out;
+    margin-bottom: 20px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 20px;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 40px;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    color: gray;
 }
