@@ -1,0 +1,19 @@
+body {
+    background-color: #1a1a1a;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+}
+
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.animated-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ccc;
+    animation: fadeIn 2s ease-in-out;
+}
