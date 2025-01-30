@@ -28,7 +28,7 @@ body {
   padding: 20px 45px;
   font-size: 19px;
   background-color: #000000;
-  border-color: #9900ff;
+  border-color: #d17eeb;
   cursor: pointer;
   color: #ffffff;
   z-index: 2;
@@ -40,8 +40,8 @@ body {
 
 .load-btn:hover {
   transform: translateY(-7px); /* lift effect */
-  border-color: #c300ff;
-  color: #c300ff;
+  border-color: #d17eeb;
+  color: #d17eeb;
 }
 
 /* hidden bio content initially */
@@ -99,7 +99,7 @@ body {
 .discord-link {
   font-size: 18px;
   margin-top: 10px;
-  color: #9900ff;
+  color: #d18cff;
   font-family: "Electrolize", serif;
   font-weight: 400;
   font-style: normal;
@@ -111,11 +111,11 @@ body {
 
 .discord-link a {
   text-decoration: none;  /* removes the underline*/
-  color: #9900ff;  /* keep the link color */
+  color: #d17eeb;  /* keep the link color */
 }
 
 .discord-link a:hover {
-  color: #9900ff;  /* prevent the color from changing on hover */
+  color: #d756ff;  /* prevent the color from changing on hover */
 }
 
 
