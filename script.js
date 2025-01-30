@@ -8,7 +8,7 @@ document.getElementById('loadBtn').addEventListener('click', function () {
   // play background music
   const audio = new Audio('https://storage.eclipsed.top/1171914012691005440/aiham/video.mp3');
   audio.volume = 0.15; // 15% volume - put to 20% (.2) maybe, its kinda loud on 100% pc volume but its fine for avrg mobile volume - if you put 30% or above ur gonna commit at least 30 war crimes so be warned
-  audio.loop = true;
+  audio.loop = false;
   audio.play();
 
   // discord link typewriter effect
