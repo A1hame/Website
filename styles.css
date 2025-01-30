@@ -40,8 +40,8 @@ body {
 
 .load-btn:hover {
   transform: translateY(-7px); /* lift effect */
-  border-color: #F780FF;
-  color: #F780FF;
+  border-color: #c300ff;
+  color: #c300ff;
 }
 
 /* hidden bio content initially */
@@ -140,4 +140,3 @@ body {
 .social-icons img:hover {
   transform: scale(1.1);
 }
-
