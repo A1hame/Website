@@ -62,8 +62,8 @@ embed.addEventListener('mouseleave', () => {
   resetHideTimeout();
 });
 
-// error handleing
-console.log("script.js has loaded successfully!");
+// Test 
+console.log("Do You See Mee");
 
 // detect mouse movement and show embed again if its invisible
 document.addEventListener('mousemove', () => {
