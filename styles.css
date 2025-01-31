@@ -28,7 +28,7 @@ body {
   padding: 20px 45px;
   font-size: 19px;
   background-color: #000000;
-  border-color: #303030;
+  border-color: #ffffff;
   cursor: pointer;
   color: #ffffff;
   z-index: 2;
@@ -80,7 +80,7 @@ console.log("LOOK FOR ME IM KIDNAPPED");
   position: relative;
   top: 50%;
   transform: translateY(-50%);
-  box-shadow: 0 0 50px rgb(0, 0, 0); /* Faint outer glow */
+  box-shadow: 0 0 50px rgb(255, 255, 255); /* Faint outer glow */
   transition: opacity 0.3s ease; /* Smooth fade-in/out */
 }
 
