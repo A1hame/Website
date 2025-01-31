@@ -6,7 +6,7 @@ document.getElementById('loadBtn').addEventListener('click', function () {
   document.getElementById('loadBtn').style.display = 'none';
 
   // play background music
-  const audio = new Audio('https://raw.githubusercontent.com/A1hame/Website/main/assets/1199074012119175309/Audios/Aiham.mp3');
+  const audio = new Audio('https://raw.githubusercontent.com/A1hame/Website/main/assets/1199074012119175309/Audio/Aiham.mp3');
   audio.volume = 0.1; // 15% volume - put to 20% (.2) maybe, its kinda loud on 100% pc volume but its fine for avrg mobile volume - if you put 30% or above ur gonna commit at least 30 war crimes so be warned
   audio.loop = false;
   audio.play();
