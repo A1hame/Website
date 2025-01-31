@@ -12,7 +12,7 @@ document.getElementById('loadBtn').addEventListener('click', function () {
   audio.play();
 
   // typewriter effect
-  const quote = document.getElementById('discord-link');
+  const quote = document.getElementById('quote');
   const text = 'The Sun Will Rise And We Will Try Again';
   let index = 0;
 
