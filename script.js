@@ -50,7 +50,7 @@ function hideEmbed() {
 // reset the timeout when embed is shown
 function resetHideTimeout() {
   clearTimeout(hideTimeout);
-  hideTimeout = setTimeout(hideEmbed, 5000); // hide after 5 sec of inactivity
+  hideTimeout = setTimeout(hideEmbed, 15000); // hide after 15 sec of inactivity
 }
 
 // add event listeners to reset the timeout on hover
