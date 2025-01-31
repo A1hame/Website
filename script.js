@@ -63,7 +63,7 @@ embed.addEventListener('mouseleave', () => {
 });
 
 // Test 
-console.log("I Hacked You");
+console.log("LOOK FOR ME IM KIDNAPPED");
 
 // detect mouse movement and show embed again if its invisible
 document.addEventListener('mousemove', () => {
