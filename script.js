@@ -62,7 +62,7 @@ embed.addEventListener('mouseleave', () => {
   resetHideTimeout();
 });
 
-// Test 
+// Test please show up 
 console.log("LOOK FOR ME IM KIDNAPPED");
 
 // detect mouse movement and show embed again if its invisible
