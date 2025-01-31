@@ -5,8 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/A1hame/Website/main/assets/1199074012119175309/Pictures/favicon.png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/A1hame/Website@main/styles.css?v=<?php echo time(); ?>">
+
+    <script>
+        const timestamp = new Date().getTime(); // Generate a unique timestamp
+
+        // Load the latest styles.css
+        document.write(`<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/A1hame/Website@main/styles.css?v=${timestamp}">`);
+    </script>
+
     <link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             let titleText = "A 1 h a m";
@@ -54,6 +62,10 @@
             </div>
         </div>
     </div>
-  <script src="https://cdn.jsdelivr.net/gh/A1hame/Website@main/script.js?v=<?php echo time(); ?>"></script>
+
+    <script>
+        // Load the latest script.js
+        document.write(`<script src="https://cdn.jsdelivr.net/gh/A1hame/Website@main/script.js?v=${timestamp}"><\/script>`);
+    </script>
 </body>
 </html>
