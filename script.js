@@ -7,7 +7,7 @@ document.getElementById('loadBtn').addEventListener('click', function () {
 
   // play background music
   const audio = new Audio('https://storage.eclipsed.top/1171914012691005440/aiham/video.mp3');
-  audio.volume = 0.1; // 15% volume - put to 20% (.2) maybe, its kinda loud on 100% pc volume but its fine for avrg mobile volume - if you put 30% or above ur gonna commit at least 30 war crimes so be warned
+  audio.volume = 0.15; // 15% volume - put to 20% (.2) maybe, its kinda loud on 100% pc volume but its fine for avrg mobile volume - if you put 30% or above ur gonna commit at least 30 war crimes so be warned
   audio.loop = false;
   audio.play();
 
@@ -32,45 +32,7 @@ document.getElementById('loadBtn').addEventListener('click', function () {
 
 // embed element
 const embed = document.querySelector('.embed');
-
-// timer variable to track inactivity
-let hideTimeout;
-
-// show the embed
-function showEmbed() {
-  embed.classList.remove('invisible');
-  resetHideTimeout();
-}
-
-// hide the embed
-function hideEmbed() {
-  embed.classList.add('invisible');
-}
-
-// reset the timeout when embed is shown
-function resetHideTimeout() {
-  clearTimeout(hideTimeout);
-  hideTimeout = setTimeout(hideEmbed, 15000); // hide after 15 sec of inactivity
-}
-
-// add event listeners to reset the timeout on hover
-embed.addEventListener('mouseenter', () => {
-  showEmbed();
-});
-
-embed.addEventListener('mouseleave', () => {
-  resetHideTimeout();
-});
+embed.classList.remove('invisible'); // ensure it's always visible
 
 // Test 
 console.log("I Hacked You");
-
-// detect mouse movement and show embed again if its invisible
-document.addEventListener('mousemove', () => {
-  if (embed.classList.contains('invisible')) {
-    showEmbed();
-  }
-});
-
-// start the hide timeout
-resetHideTimeout();
