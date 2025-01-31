@@ -7,13 +7,13 @@ document.getElementById('loadBtn').addEventListener('click', function () {
 
   // play background music
   const audio = new Audio('https://storage.eclipsed.top/1171914012691005440/aiham/video.mp3');
-  audio.volume = 0.15; // 15% volume - put to 20% (.2) maybe, its kinda loud on 100% pc volume but its fine for avrg mobile volume - if you put 30% or above ur gonna commit at least 30 war crimes so be warned
+  audio.volume = 0.1; // 15% volume - put to 20% (.2) maybe, its kinda loud on 100% pc volume but its fine for avrg mobile volume - if you put 30% or above ur gonna commit at least 30 war crimes so be warned
   audio.loop = false;
   audio.play();
 
   // discord link typewriter effect
   const discordLink = document.getElementById('discord-link');
-  const text = 'test';
+  const text = 'The Sun Will Rise And We Will Try Again';
   let index = 0;
 
   function typeWriter() {
@@ -23,7 +23,7 @@ document.getElementById('loadBtn').addEventListener('click', function () {
       setTimeout(typeWriter, 100);
     } else {
       // once typing is done wrap it in an anchor tag (otherwise u cant click the link idk why dont ask me)
-      discordLink.innerHTML = `<a href="Test" target="_blank">${text}</a>`;
+      discordLink.innerHTML = `<a href="https://www.adl.org/" target="_blank">${text}</a>`;
     }
   }
 
