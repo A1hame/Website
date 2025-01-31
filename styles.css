@@ -96,7 +96,7 @@ body {
   font-family: "Electrolize", serif;
 }
 
-.discord-link {
+.quote {
   font-size: 18px;
   margin-top: 10px;
   color: #d18cff;
@@ -109,12 +109,12 @@ body {
   display: inline-block;
 }
 
-.discord-link a {
+.quote a {
   text-decoration: none;  /* removes the underline*/
   color: #d17eeb;  /* keep the link color */
 }
 
-.discord-link a:hover {
+.quote a:hover {
   color: #d756ff;  /* prevent the color from changing on hover */
 }
 
