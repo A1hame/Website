@@ -11,19 +11,19 @@ document.getElementById('loadBtn').addEventListener('click', function () {
   audio.loop = false;
   audio.play();
 
-  // discord link typewriter effect
-  const discordLink = document.getElementById('discord-link');
+  // typewriter effect
+  const quote = document.getElementById('discord-link');
   const text = 'The Sun Will Rise And We Will Try Again';
   let index = 0;
 
   function typeWriter() {
     if (index < text.length) {
-      discordLink.innerHTML += text.charAt(index);
+      quote.innerHTML += text.charAt(index);
       index++;
       setTimeout(typeWriter, 100);
     } else {
       // once typing is done wrap it in an anchor tag (otherwise u cant click the link idk why dont ask me)
-      discordLink.innerHTML = `<a href="https://www.adl.org/" target="_blank">${text}</a>`;
+      quote.innerHTML = `<a href="https://www.adl.org/" target="_blank">${text}</a>`;
     }
   }
 
